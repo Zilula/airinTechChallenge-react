@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { getAllQuestions } from '../../services/API';
 import Question from '../question/Question';
-import { questionsRef, answersRef } from '../../services/firebase';
+// import seedDataBase from '../../services/seedDB';
 
 
 
@@ -15,30 +15,13 @@ export default class Search extends PureComponent {
     handleSearch = ({ target }) => {
         this.setState({ [target.name]: target.value });
     }
-
     componentDidMount() {
+
+        // seedDataBase();
+
         getAllQuestions()
             .then(res => {
                 this.setState({ results: res });
-            });
-
-
-        const key = questionsRef.doc().id;
-        questionsRef.add({
-            id: key,
-            question: 'Favorite rap artist?'
-        })
-            .then(function() {
-                answersRef.add({
-                    questionId: key,
-                    answer: 'BIGGIE SMALLS'
-                })
-                    .catch(function(error) {
-                        console.error('Error adding document: ', error);
-                    });
-            })
-            .catch(function(error) {
-                console.error('Error adding document: ', error);
             });
     }
 
@@ -52,7 +35,7 @@ export default class Search extends PureComponent {
                     });
                 })
                 .then(filter => {
-                    this.setState({ filtered: filter });
+                    this.setState({ results: filter });
                 });
         }
     }
@@ -64,7 +47,7 @@ export default class Search extends PureComponent {
 
     render() {
         const { keyword } = this.state;
-        const listOfQuestions = this.state.filtered.map(question => {
+        const listOfQuestions = this.state.results.map(question => {
             return <li key={question.question}><Question details={question}/></li>;
         });
         return (

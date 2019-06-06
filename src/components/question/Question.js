@@ -3,12 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 function Question({ details }) {
-
-
-
     const { question, id } = details;
-    console.log(question, id);
-
 
     return (
         <>

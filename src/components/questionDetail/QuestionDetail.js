@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getAnswers } from '../../services/API';
+import Answer from '../answer/Answer';
 
 export default class QuestionDetail extends React.PureComponent {
 
@@ -18,7 +19,6 @@ export default class QuestionDetail extends React.PureComponent {
                         querySnapshot.forEach(function(doc) {
                             const answer = doc.data();
                             newArray.push(answer);
-                            console.log(doc.id, ' => ', doc.data());
                         });
                         return newArray;
                     })
@@ -30,10 +30,16 @@ export default class QuestionDetail extends React.PureComponent {
 
     render() {
         console.log(this.state.answers);
+
+        const listOfAnswers = this.state.answers.map(answer => {
+            return <Answer key={answer.questionId} answer={answer} />;
+        });
         return (
             <>
                 <h1> QUESTION DETAIL</h1>
                 <h2>{this.state.id}</h2>
+
+                <ul>{listOfAnswers}</ul>
             </>
         );
     }
