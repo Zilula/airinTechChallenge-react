@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { getAllQuestions } from '../../services/API';
+import { getAllQuestions, getFirstPage, getNextPage } from '../../services/API';
 import Question from '../question/Question';
 import { Input } from './SearchStyles';
 import styles from './Search.css';
@@ -11,19 +11,41 @@ export default class Search extends PureComponent {
     state = {
         keyword: '',
         results: [],
-        filtered: []
+        filtered: [],
+        next: null, 
+        page: 1
     };
 
     handleSearch = ({ target }) => {
         this.setState({ [target.name]: target.value });
     }
+
+    incrementPage = () => {
+        this.setState({ page: this.state.page + 1 });
+
+        getNextPage(this.state.next)
+            .then(res => {
+                console.log('RES', res)
+                this.setState({ results: res.questions, filtered: res.questions, next: res.next });
+                // console.log('result', res);
+            });
+
+    };
+
     componentDidMount() {
 
         // seedDataBase();
 
-        getAllQuestions()
+        // getAllQuestions()
+        //     .then(res => {
+        //         this.setState({ results: res, filtered: res });
+        //     });
+
+
+        getFirstPage()
             .then(res => {
-                this.setState({ results: res, filtered: res });
+                console.log(res);
+                this.setState({ next: res.next, results: res.questions, filtered: res.questions  });
             });
     }
 
@@ -39,17 +61,6 @@ export default class Search extends PureComponent {
             });
 
             this.setState({ filtered: search });
-
-            //filter
-            // getAllQuestions()
-            //     .then(res => {
-            //         return res.filter(question => {
-            //             return question.question.includes(this.state.keyword);
-            //         });
-            //     })
-            //     .then(filter => {
-            //         this.setState({ results: filter });
-            //     });
         }
     }
     componentWillUnmount() {
@@ -68,6 +79,10 @@ export default class Search extends PureComponent {
                 <div className={styles.Body}>
                     <h1>Lets get jiggy with it</h1>
                     <Input placeholder="Search for something..." name="keyword" value={keyword} onChange={this.handleSearch} />
+
+                    <button onClick={this.incrementPage}>NEXT</button>
+
+
                     <ul> {listOfQuestions}</ul>
                 </div>
             </>
