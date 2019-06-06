@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { getAllQuestions } from '../../services/API';
 import Question from '../question/Question';
+import { Input } from './SearchStyles';
+import styles from './Search.css';
 // import seedDataBase from '../../services/seedDB';
 
 
@@ -27,6 +29,7 @@ export default class Search extends PureComponent {
 
     componentDidUpdate(prevProps, prevState) {
         if(prevState.keyword !== this.state.keyword) {
+
             //filter
             getAllQuestions()
                 .then(res => {
@@ -48,18 +51,15 @@ export default class Search extends PureComponent {
     render() {
         const { keyword } = this.state;
         const listOfQuestions = this.state.results.map(question => {
-            return <li key={question.question}><Question details={question}/></li>;
+            return <li key={question.question}><Question details={question} /></li>;
         });
         return (
             <>
-                <h1> ARTIST SEARCH COMP</h1>
-
-                <label>Search for Artist
-                    <input type="text" name="keyword" value={keyword} onChange={this.handleSearch} />
-                </label>
-
-
-                <ul> {listOfQuestions}</ul>
+                <div className={styles.Body}>
+                    <h1>Lets get jiggy with it</h1>
+                    <Input placeholder="Search for something..." name="keyword" value={keyword} onChange={this.handleSearch} />
+                    <ul> {listOfQuestions}</ul>
+                </div>
             </>
         );
     }
