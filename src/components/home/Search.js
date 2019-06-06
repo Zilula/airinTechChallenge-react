@@ -1,5 +1,9 @@
 import React, { PureComponent } from 'react';
-import { getAllQuestions } from '../services/API';
+import { getAllQuestions } from '../../services/API';
+import Question from '../question/Question';
+import { questionsRef, answersRef } from '../../services/firebase';
+
+
 
 export default class Search extends PureComponent {
     state = {
@@ -17,13 +21,30 @@ export default class Search extends PureComponent {
             .then(res => {
                 this.setState({ results: res });
             });
+
+
+        const key = questionsRef.doc().id;
+        questionsRef.add({
+            id: key,
+            question: 'Favorite rap artist?'
+        })
+            .then(function() {
+                answersRef.add({
+                    questionId: key,
+                    answer: 'BIGGIE SMALLS'
+                })
+                    .catch(function(error) {
+                        console.error('Error adding document: ', error);
+                    });
+            })
+            .catch(function(error) {
+                console.error('Error adding document: ', error);
+            });
     }
 
     componentDidUpdate(prevProps, prevState) {
         if(prevState.keyword !== this.state.keyword) {
-
             //filter
-            console.log(this.state.questions, 'HELLO WORLD');
             getAllQuestions()
                 .then(res => {
                     return res.filter(question => {
@@ -35,18 +56,20 @@ export default class Search extends PureComponent {
                 });
         }
     }
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
 
 
 
     render() {
         const { keyword } = this.state;
         const listOfQuestions = this.state.filtered.map(question => {
-            return <li key={question.question}>{question.question}</li>;
+            return <li key={question.question}><Question details={question}/></li>;
         });
         return (
             <>
                 <h1> ARTIST SEARCH COMP</h1>
-
 
                 <label>Search for Artist
                     <input type="text" name="keyword" value={keyword} onChange={this.handleSearch} />

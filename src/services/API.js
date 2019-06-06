@@ -1,4 +1,4 @@
-import { questionsRef } from '../services/firebase';
+import { questionsRef, answersRef } from '../services/firebase';
 
 export const getAllQuestions = () => {
     return new Promise(function(resolve, reject) {
@@ -17,6 +17,21 @@ export const getAllQuestions = () => {
             });
     });
 };
+
+
+export const getAnswers = (id) => {
+    return new Promise(function(resolve, reject) {
+        resolve(answersRef.where('questionId', '==', id))
+            .catch((error) => {
+                console.error('Error adding document: ', error);
+                reject(error);
+            });
+    });
+
+};
+
+
+
 
 
 
