@@ -23,23 +23,33 @@ export default class Search extends PureComponent {
 
         getAllQuestions()
             .then(res => {
-                this.setState({ results: res });
+                this.setState({ results: res, filtered: res });
             });
     }
 
     componentDidUpdate(prevProps, prevState) {
         if(prevState.keyword !== this.state.keyword) {
 
+            if(this.state.keyword === '') {
+                this.setState({ filtered: this.state.results });
+            }
+
+            const search = this.state.results.filter(question => {
+                return question.question.includes(this.state.keyword);
+            });
+
+            this.setState({ filtered: search });
+
             //filter
-            getAllQuestions()
-                .then(res => {
-                    return res.filter(question => {
-                        return question.question.includes(this.state.keyword);
-                    });
-                })
-                .then(filter => {
-                    this.setState({ results: filter });
-                });
+            // getAllQuestions()
+            //     .then(res => {
+            //         return res.filter(question => {
+            //             return question.question.includes(this.state.keyword);
+            //         });
+            //     })
+            //     .then(filter => {
+            //         this.setState({ results: filter });
+            //     });
         }
     }
     componentWillUnmount() {
@@ -50,8 +60,8 @@ export default class Search extends PureComponent {
 
     render() {
         const { keyword } = this.state;
-        const listOfQuestions = this.state.results.map(question => {
-            return <li key={question.question}><Question details={question} /></li>;
+        const listOfQuestions = this.state.filtered.map((question, i) => {
+            return <li key={i}> <Question details={question} /></li>;
         });
         return (
             <>

@@ -13,6 +13,7 @@ const seedDataBase = () => {
             .then(function() {
                 [...Array(TOTAL_ANSWERS_PER_QUESTION)].forEach(() => {
                     answersRef.add({
+                        
                         questionId: key,
                         answer: 'BIGGIE SMALLS'
                     })

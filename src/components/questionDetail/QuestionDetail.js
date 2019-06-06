@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getAnswers } from '../../services/API';
 import Answer from '../answer/Answer';
+import styles from './QuestionDetail.css';
 
 export default class QuestionDetail extends React.PureComponent {
 
@@ -36,10 +37,10 @@ export default class QuestionDetail extends React.PureComponent {
         });
         return (
             <>
-                <h1> QUESTION DETAIL</h1>
-                <h2>{this.state.id}</h2>
-
-                <ul>{listOfAnswers}</ul>
+                <div className={styles.Body}>
+                    <h1> Do I have the answer you're looking for?</h1>
+                    <ul>{listOfAnswers}</ul>
+                </div>
             </>
         );
     }
