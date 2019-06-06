@@ -12,17 +12,20 @@ export default class QuestionDetail extends React.PureComponent {
     componentDidMount() {
         getAnswers(this.state.id)
             .then(res => {
-                res.get().then(function(querySnapshot) {
-                    
-                    querySnapshot.forEach(function(doc) {
-                        const answer = doc.data();
-                        this.state.answers.push(answer);
-                        console.log(doc.id, ' => ', doc.data());
+                res.get()
+                    .then(function(querySnapshot) {
+                        const newArray = [];
+                        querySnapshot.forEach(function(doc) {
+                            const answer = doc.data();
+                            newArray.push(answer);
+                            console.log(doc.id, ' => ', doc.data());
+                        });
+                        return newArray;
+                    })
+                    .then(array => {
+                        this.setState({ answers: array });
                     });
-
-                });
             });
-
     }
 
     render() {
