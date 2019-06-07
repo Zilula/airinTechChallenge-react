@@ -4,7 +4,7 @@
 /* Base styling */
 
 .Body {
-    background: #f7cac9;
+    background: #5F4B8B;
     margin:0;
     padding: 0;
     text-align: center;
@@ -12,8 +12,11 @@
     height: 100%;
     h1 {
       padding-top: 2em;
+      padding-bottom: .5em;
       margin: 0;
-      color: black;
+      color: White;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+      font-size: 3em
     }
     ul {
       align-self: center;
@@ -22,7 +25,7 @@
       list-style: none;
     }
     li {
-      max-width: fit-content;
+      max-width: 50%;
       margin: auto;
       max-height: fit-content;
     }
@@ -30,4 +33,16 @@
       font-size: 2em;
       margin: .5em;
     }
+    input {
+      width: 40%;
+      border: 3px solid #33bdef;
+      font-size: 1.4em;
+      padding: 5px;
+      height: 1.5em;
+      border-radius: .5em;
+      outline: none;
+      color: #9DBFAF;
+      margin-bottom: 1em;
+    }
+
 }

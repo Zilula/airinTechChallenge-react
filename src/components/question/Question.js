@@ -8,9 +8,12 @@ function Question({ details }) {
 
     return (
         <>
-            <Link className={styles.Link} to={`/question/${id}`}>
-                <p>{question}</p>
-            </Link>
+            <div className={styles.Div}>
+                <Link className={styles.Link} to={`/question/${id}`}>
+                    <span id="icon">Q.</span>
+                    <p>{question}</p>
+                </Link>
+            </div>
         </>
 
     );

@@ -1,5 +1,5 @@
 {
-  "name": "note-to-self",
+  "name": "airin-react",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
@@ -27,20 +27,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "auth0-js": "^9.10.1",
+    "chance": "^1.0.18",
     "copy-webpack-plugin": "^5.0.2",
     "dotenv-webpack": "^1.7.0",
     "firebase": "^6.1.0",
     "normalize.css": "^8.0.1",
-    "promise-middleware-redux": "^1.0.5",
     "react": "^16.8.2",
-    "react-burger-menu": "^2.6.5",
     "react-dom": "^16.8.2",
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.1",
-    "styled-components": "^4.2.0",
-    "uuid": "^3.3.2"
+    "styled-components": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.3.3",

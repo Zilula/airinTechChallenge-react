@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './Answer.css';
 
 function Answer({ answer }) {
     return (
         <>
-            <h3>Answer Component</h3>
-            <p>{answer.answer}</p>
+            <li className={styles.Body}>
+                <span id="icon">A.</span><p>{answer.answer}</p>
+            </li>
         </>
     );
 }

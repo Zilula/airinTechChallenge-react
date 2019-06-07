@@ -1,5 +1,18 @@
  .Link {
      margin-right: 2em;
-     color:black;
+     color:white;
      max-width: max-content;
+     
+     span {
+        font-size: 3em;
+        font-weight: 900;
+        display: inline;
+        float: left;
+      }
+
+ }
+
+ .Div {
+  border-bottom: .1em black solid;
+
  }

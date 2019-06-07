@@ -14,18 +14,8 @@ export default class QuestionDetail extends React.PureComponent {
     componentDidMount() {
         getAnswers(this.state.id)
             .then(res => {
-                res.get()
-                    .then(function(querySnapshot) {
-                        const newArray = [];
-                        querySnapshot.forEach(function(doc) {
-                            const answer = doc.data();
-                            newArray.push(answer);
-                        });
-                        return newArray;
-                    })
-                    .then(array => {
-                        this.setState({ answers: array });
-                    });
+                this.setState({ answers: res });
+
             });
     }
 
