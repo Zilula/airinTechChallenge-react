@@ -11,7 +11,7 @@ function Question({ details }) {
             <div className={styles.Div}>
                 <Link className={styles.Link} to={`/question/${id}`}>
                     <span id="icon">Q.</span>
-                    <p>{question}</p>
+                    <p id="question">{question}</p>
                 </Link>
             </div>
         </>
