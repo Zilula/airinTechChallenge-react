@@ -29,6 +29,7 @@
   "dependencies": {
     "chance": "^1.0.18",
     "copy-webpack-plugin": "^5.0.2",
+    "dotenv-webpack": "^1.7.0",
     "firebase": "^6.1.0",
     "normalize.css": "^8.0.1",
     "react": "^16.8.2",
