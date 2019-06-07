@@ -12,7 +12,7 @@ export const getAllQuestions = () => {
                 resolve(questions);
             })
             .catch((error) => {
-                console.error('Error adding document: ', error);
+                console.error('Error getting documents: ', error);
                 reject(error);
             });
     });
@@ -31,7 +31,7 @@ export const getQuestion = (id) => {
                 resolve(questions);
             })
             .catch((error) => {
-                console.error('Error adding document: ', error);
+                console.error('Error getting document: ', error);
                 reject(error);
             });
     });
@@ -51,7 +51,7 @@ export const getAnswers = (id) => {
                 resolve(answers);
             })
             .catch((error) => {
-                console.error('Error adding document: ', error);
+                console.error('Error getting documents: ', error);
                 reject(error);
             });
     });
