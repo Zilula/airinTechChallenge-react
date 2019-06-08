@@ -34,6 +34,7 @@ export default class Search extends PureComponent {
 
     componentDidUpdate(prevProps, prevState) {
         if(prevState.keyword !== this.state.keyword) {
+            this.setState({ page: 1 });
             API.getQuestions(this.state.page, this.state.keyword)
                 .then(res => {
                     this.setState({ results: res, showPrev: false, page: 1 });
