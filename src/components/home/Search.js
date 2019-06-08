@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { getAllQuestions } from '../../services/API';
+import API from '../../services/API';
 import Question from '../question/Question';
 import styles from './Search.css';
 
@@ -11,35 +11,41 @@ export default class Search extends PureComponent {
     state = {
         keyword: '',
         results: [],
-        filtered: [],
+        page: 1
     };
 
     handleSearch = ({ target }) => {
         this.setState({ [target.name]: target.value });
     };
 
+
+    decrementPage = () => {
+        this.setState({ page: this.state.page - 1 });
+    };
+
+    incrementPage = () => {
+        this.setState({ page: this.state.page + 1 });
+    };
+
+
     componentDidMount() {
-
-        // seedDataBase();
-
-        getAllQuestions()
+        API.getQuestions(this.state.page, this.state.keyword)
             .then(res => {
-                this.setState({ filtered: res, results: res });
+                this.setState({ results: res });
             });
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(prevState.keyword !== this.state.keyword) {
+        if (prevState.keyword !== this.state.keyword || prevState.page !== this.state.page) {
 
-            if(this.state.keyword === '') {
-                this.setState({ filtered: this.state.results });
-            }
 
-            const search = this.state.results.filter(question => {
-                return question.question.includes(this.state.keyword);
-            });
-
-            this.setState({ filtered: search });
+            API.getQuestions(this.state.page, this.state.keyword)
+                .then(res => {
+                    this.setState({ results: res });
+                });
+            // if(this.state.keyword === '') {
+            //     this.setState({ filtered: this.state.results });
+            // }
         }
     }
     componentWillUnmount() {
@@ -50,7 +56,10 @@ export default class Search extends PureComponent {
 
     render() {
         const { keyword } = this.state;
-        const listOfQuestions = this.state.filtered.map((question, i) => {
+
+        console.log(this.state.results);
+
+        const listOfQuestions = this.state.results.map((question, i) => {
             return <li key={i}><Question details={question} /></li>;
         });
         return (
@@ -59,7 +68,8 @@ export default class Search extends PureComponent {
                     <h1>Lets get jiggy with it</h1>
                     <input placeholder="Search for something..." name="keyword" value={keyword} onChange={this.handleSearch} />
 
-                    <button onClick={this.incrementPage}>NEXT</button>
+                    {this.state.results.length >= 20 && <button onClick={this.incrementPage}>NEXT</button>}
+                    {this.state.page > 1 && < button onClick={this.decrementPage}>PREVIOUS</button>}
 
                     <ul> {listOfQuestions}</ul>
                 </div>

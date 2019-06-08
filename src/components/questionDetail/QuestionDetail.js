@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getAnswers, getQuestion } from '../../services/API';
+import API from '../../services/API';
 import Answer from '../answer/Answer';
 import styles from './QuestionDetail.css';
 
@@ -13,20 +13,16 @@ export default class QuestionDetail extends React.PureComponent {
     };
 
     componentDidMount() {
-        getAnswers(this.state.id)
+        API.getAnswers(this.state.id)
             .then(res => {
                 this.setState({ answers: res });
 
-            });
-        getQuestion(this.state.id)
-            .then(res => {
-                this.setState({ question: res[0].question });
-            });
+            }); 
     }
 
     render() {
-        const listOfAnswers = this.state.answers.map(answer => {
-            return <Answer key={answer.questionId} answer={answer} />;
+        const listOfAnswers = this.state.answers.map((answer, i) => {
+            return <Answer key={i} answer={answer} />;
         });
         return (
             <>
