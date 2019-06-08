@@ -7,7 +7,8 @@ export default class Search extends PureComponent {
     state = {
         keyword: '',
         results: [],
-        page: 1
+        page: 1,
+        showPrev: true
     };
 
     handleSearch = ({ target }) => {
@@ -32,10 +33,16 @@ export default class Search extends PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if(prevState.keyword !== this.state.keyword || prevState.page !== this.state.page) {
+        if(prevState.keyword !== this.state.keyword) {
             API.getQuestions(this.state.page, this.state.keyword)
                 .then(res => {
-                    this.setState({ results: res });
+                    this.setState({ results: res, showPrev: false, page: 1 });
+                });
+        }
+        if(prevState.page !== this.state.page) {
+            API.getQuestions(this.state.page, this.state.keyword)
+                .then(res => {
+                    this.setState({ results: res, showPrev: true });
                 });
         }
     }
@@ -54,7 +61,7 @@ export default class Search extends PureComponent {
                     <h1>Lets get jiggy with it</h1>
                     <input placeholder="Search for something..." name="keyword" value={keyword} onChange={this.handleSearch} />
                     <section>
-                        {this.state.page > 1 && < button onClick={this.decrementPage}>PREVIOUS</button>}
+                        {this.state.page > 1 && this.state.showPrev && < button onClick={this.decrementPage}>PREVIOUS</button>}
                         {this.state.results.length >= 20 && <button id="button" onClick={this.incrementPage}>NEXT</button>}
                     </section>
 
