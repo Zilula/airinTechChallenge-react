@@ -7,6 +7,10 @@ const API = {
         return fetch(`https://secure-temple-27525.herokuapp.com/questions/querying/paging?page=${page}&search=${searchTerm}`)
             .then(res => res.json());
     },
+    getQuestion(questionId) {
+        return fetch(`https://secure-temple-27525.herokuapp.com/questions/${questionId}`)
+            .then(res => res.json());
+    },
 
     getAnswers(questionId) {
         return fetch(`https://secure-temple-27525.herokuapp.com/answers/${questionId}`)

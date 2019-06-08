@@ -3,10 +3,6 @@ import API from '../../services/API';
 import Question from '../question/Question';
 import styles from './Search.css';
 
-// import seedDataBase from '../../services/seedDB';
-
-
-
 export default class Search extends PureComponent {
     state = {
         keyword: '',
@@ -36,29 +32,19 @@ export default class Search extends PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.keyword !== this.state.keyword || prevState.page !== this.state.page) {
-
-
+        if(prevState.keyword !== this.state.keyword || prevState.page !== this.state.page) {
             API.getQuestions(this.state.page, this.state.keyword)
                 .then(res => {
                     this.setState({ results: res });
                 });
-            // if(this.state.keyword === '') {
-            //     this.setState({ filtered: this.state.results });
-            // }
         }
     }
     componentWillUnmount() {
         this._isMounted = false;
     }
 
-
-
     render() {
         const { keyword } = this.state;
-
-        console.log(this.state.results);
-
         const listOfQuestions = this.state.results.map((question, i) => {
             return <li key={i}><Question details={question} /></li>;
         });
@@ -67,9 +53,10 @@ export default class Search extends PureComponent {
                 <div className={styles.Body}>
                     <h1>Lets get jiggy with it</h1>
                     <input placeholder="Search for something..." name="keyword" value={keyword} onChange={this.handleSearch} />
-
-                    {this.state.results.length >= 20 && <button onClick={this.incrementPage}>NEXT</button>}
-                    {this.state.page > 1 && < button onClick={this.decrementPage}>PREVIOUS</button>}
+                    <section>
+                        {this.state.page > 1 && < button onClick={this.decrementPage}>PREVIOUS</button>}
+                        {this.state.results.length >= 20 && <button id="button" onClick={this.incrementPage}>NEXT</button>}
+                    </section>
 
                     <ul> {listOfQuestions}</ul>
                 </div>

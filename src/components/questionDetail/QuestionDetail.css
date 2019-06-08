@@ -52,5 +52,28 @@
     margin: .5em;
     color: white;
   }
+  Link {
+    color: white;
+  }
+
+  button {
+    width: max-content;
+    height: 40px;
+    background: linear-gradient(to bottom, #4eb5e5 0%,#389ed5 100%); /* W3C */
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    border-bottom: 4px solid #2b8bc6;
+    color: #fbfbfb;
+    font-weight: 900;
+    font-family: 'Open Sans', sans-serif;
+    text-shadow: 1px 1px 1px rgba(0,0,0,.4);
+    font-size: 1.7em;
+    text-align: center;
+    box-shadow: 0px 3px 0px 0px rgba(0,0,0,.2);
+    display: inline;
+    cursor: pointer;
+    margin: .5em;
+  }
 
 }
