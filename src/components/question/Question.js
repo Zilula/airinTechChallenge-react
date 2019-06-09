@@ -15,7 +15,6 @@ function Question({ details }) {
                 </Link>
             </div>
         </>
-
     );
 }
 

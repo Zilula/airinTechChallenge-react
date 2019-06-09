@@ -52,8 +52,8 @@ export default class Search extends PureComponent {
     }
 
     render() {
-        const { keyword } = this.state;
-        const listOfQuestions = this.state.results.map((question, i) => {
+        const { keyword, results, showPrev, page } = this.state;
+        const listOfQuestions = results.map((question, i) => {
             return <li key={i}><Question details={question} /></li>;
         });
         return (
@@ -62,8 +62,8 @@ export default class Search extends PureComponent {
                     <h1>&quot;Gettin jiggy wit it&quot; - Will Smith</h1>
                     <input placeholder="Search for something..." name="keyword" value={keyword} onChange={this.handleSearch} />
                     <section>
-                        {this.state.page > 1 && this.state.showPrev && < button onClick={this.decrementPage}>PREVIOUS</button>}
-                        {this.state.results.length >= 20 && <button id="button" onClick={this.incrementPage}>NEXT</button>}
+                        {page > 1 && showPrev && < button onClick={this.decrementPage}>PREVIOUS</button>}
+                        {results.length >= 20 && <button id="button" onClick={this.incrementPage}>NEXT</button>}
                     </section>
 
                     <ul> {listOfQuestions}</ul>

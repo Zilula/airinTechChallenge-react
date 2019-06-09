@@ -28,7 +28,8 @@ export default class QuestionDetail extends React.PureComponent {
     }
 
     render() {
-        const listOfAnswers = this.state.answers.map((answer, i) => {
+        const { answers, question } = this.state;
+        const listOfAnswers = answers.map((answer, i) => {
             return <Answer key={i} answer={answer} />;
         });
         return (
@@ -36,7 +37,7 @@ export default class QuestionDetail extends React.PureComponent {
                 <div className={styles.Body}>
                     <h1> Do I have the answer you&apos;re looking for?</h1>
                     <div>
-                        <h2> <span id="icon">Q.</span>{this.state.question}</h2>
+                        <h2> <span id="icon">Q.</span>{question}</h2>
                     </div>
 
                     <ul>{listOfAnswers}</ul>
