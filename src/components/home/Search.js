@@ -59,7 +59,7 @@ export default class Search extends PureComponent {
         return (
             <>
                 <div className={styles.Body}>
-                    <h1>Lets get jiggy with it</h1>
+                    <h1>&quot;Gettin jiggy wit it&quot; - Will Smith</h1>
                     <input placeholder="Search for something..." name="keyword" value={keyword} onChange={this.handleSearch} />
                     <section>
                         {this.state.page > 1 && this.state.showPrev && < button onClick={this.decrementPage}>PREVIOUS</button>}
